@@ -1,17 +1,6 @@
-import React, { useState, useEffect } from 'react'
-import { get } from './BooksAPI'
+import React from 'react'
 
-export const Book = ({ id }) => {
-    const [book, setBook] = useState();
-
-    // didMount
-    useEffect(() => {
-        get(id)
-        .then(book => {
-            setBook(book)
-        });
-    }, []);
-
+export const Book = ({ book }) => {
 
     if (book)
         return (
