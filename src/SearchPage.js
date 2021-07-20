@@ -30,6 +30,8 @@ export const SearchPage = () => {
 
       case "read":
         return "Read"
+      default:
+        return "None"
     }
   }
 
