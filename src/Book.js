@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import PropTypes from 'prop-types';
 
-export const Book = ({ book }) => {
+export const Book = ({ book, bookChange }) => {
     let image = book.imageLinks ?
-     `url(${book.imageLinks.thumbnail})` :
-     "url(/generic-book-cover.jpg)"
+        `url(${book.imageLinks.thumbnail})` :
+        "url(/generic-book-cover.jpg)"
+
     if (book)
         return (
             <div className="book">
@@ -18,7 +20,12 @@ export const Book = ({ book }) => {
                     </div>
 
                     <div className="book-shelf-changer">
-                        <select>
+                        <select onChange={(event) => {
+                            bookChange(book, event.target.value)
+                        }}
+
+                            defaultValue={"move"}> {/*default value = move so that any choice triggers onChange*/}
+
                             <option value="move" disabled>Move to...</option>
                             <option value="currentlyReading">Currently Reading</option>
                             <option value="wantToRead">Want to Read</option>
@@ -31,10 +38,16 @@ export const Book = ({ book }) => {
                 <div className="book-authors">{book.authors ? book.authors.join(", ") : "No Authors"}</div>
             </div>
         )
+
     else {
         return (
-            <div className="loading"> <h2 style={{ margin: 10 }}>Loading ...</h2></div>
+            <div className="loading-book"> <h2 style={{ margin: 10 }}>Loading ...</h2></div>
         )
     }
 
 }
+
+Book.propTypes = {
+    bookChange: PropTypes.func,
+    book: PropTypes.object
+};

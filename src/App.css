@@ -142,7 +142,7 @@ button:active {
   width: 140px;
 }
 
-.loading{
+.loading-book{
 display: flex;
 justify-content: center; /* align horizontal */
 align-items: center; /* align vertical */
@@ -204,4 +204,18 @@ border-style: dashed;
   padding: 20px 10px 0;
   text-align: center;
   font-size: 0.8em;
+}
+
+.loading-library{
+  text-align: center;
+  width: 200px;
+  padding-top: 200px;
+  margin: auto;
+}
+
+.shelf{
+  font-size: 0.9em;
+  margin-top: 0.4em;
+  font-weight: bolder;
+  color: #498846;
 }
