@@ -4,7 +4,7 @@ import { getAll, search, update } from './BooksAPI'
 import { Book } from './Book'
 
 // "Static" variable, do not export
-let query="";
+let query = "";
 
 
 
@@ -35,7 +35,7 @@ export const SearchPage = () => {
 
   const updateResults = (q) => {
     setBooks([])
-    if (q === ""){
+    if (q === "") {
       console.log("Empty query");
       setsearching(false)
       return
@@ -59,9 +59,9 @@ export const SearchPage = () => {
           if (q !== query)
             return
 
-          if (ret !== undefined && !ret.error) 
+          if (ret !== undefined && !ret.error)
             setBooks(ret)
-          
+
           setsearching(false)
         })
 
