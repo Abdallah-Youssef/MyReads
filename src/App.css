@@ -197,6 +197,7 @@ border-style: dashed;
 
 option:checked {
   font-weight: bolder;
+  font-style: italic;
   background-color: #60ac5d;
   color: white;
 }
