@@ -24,7 +24,8 @@ export const Book = ({ book, bookChange }) => {
                             bookChange(book, event.target.value)
                         }}
 
-                            defaultValue={"move"}> {/*default value = move so that any choice triggers onChange*/}
+                        value={book.shelf ? book.shelf : "none"}
+                        > 
 
                             <option value="move" disabled>Move to...</option>
                             <option value="currentlyReading">Currently Reading</option>

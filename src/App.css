@@ -193,6 +193,14 @@ border-style: dashed;
   cursor: pointer;
 }
 
+
+
+option:checked {
+  font-weight: bolder;
+  background-color: #60ac5d;
+  color: white;
+}
+
 /* book cover */
 
 .book-cover {

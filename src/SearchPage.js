@@ -16,44 +16,33 @@ export const SearchPage = () => {
 
 
   const bookChange = (book, newShelf) => {
+    book.shelf = newShelf;
+
+    // To maintain the order of the books I used map()
+    setBooks(books.map(b => b.id !== book.id ? b : Object.assign({}, b, {shelf:newShelf})))
     update(book, newShelf)
-      .then(() => updateResults(query))
   }
 
-  const shelfDisplayName = (shelfName) => {
-    switch (shelfName) {
-      case "currentlyReading":
-        return "Currently Reading"
-
-      case "wantToRead":
-        return "Want to Read"
-
-      case "read":
-        return "Read"
-      default:
-        return "None"
-    }
-  }
 
   const updateResults = (q) => {
     setBooks([])
     if (q === "") {
-      console.log("Empty query");
+      //console.log("Empty query");
       setsearching(false)
       return
     }
     setsearching(true)
 
     // I have to get all the new books to get the updated shelf prop
-    getAll().then(ret => {
+    getAll().then(libResult => {
 
 
       // Get books currently in the library
-      setlibraryBooks(ret)
+      setlibraryBooks(libResult)
 
 
       search(q)
-        .then((ret) => {
+        .then((queryResult) => {
           // ret is undefined in the case of empty query
           // ret has an error property in the case of a query outside the search terms
           // To avoid race conditions, I have to check that the query I am retrieving
@@ -61,8 +50,19 @@ export const SearchPage = () => {
           if (q !== query)
             return
 
-          if (ret !== undefined && !ret.error)
-            setBooks(ret)
+          if (queryResult !== undefined && !queryResult.error){
+            queryResult.forEach(book => {
+              // for each book in the query result
+              // if it is in library, add to it the shelf prop
+              let libraryBook = libraryBooks.filter(libraryBook => libraryBook.id === book.id)
+              if (libraryBook.length > 0)
+                  book.shelf = libraryBook[0].shelf
+              
+              
+            })
+
+            setBooks(queryResult)
+          }
 
           setsearching(false)
         })
@@ -106,16 +106,6 @@ export const SearchPage = () => {
                 .map((book) => (
                   <li key={book.id}>
                     <Book book={book} bookChange={bookChange} />
-
-                    {
-                      // If this books is in library
-                      libraryBooks.some(libraryBook => libraryBook.id === book.id)
-                      &&
-                      <div className="shelf">  Shelf: {
-                        shelfDisplayName(libraryBooks.find(libraryBook => libraryBook.id === book.id).shelf)
-                      } </div>
-                    }
-
                   </li>
 
                 )) :

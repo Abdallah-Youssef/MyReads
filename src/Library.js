@@ -25,10 +25,10 @@ export const Library = () => {
 
   const bookChange = (book, newShelf) => {
     console.log(book, newShelf);
-    update(book, newShelf).then(() => {
-      setBooks([])
-      getBooks()
-    })
+
+    book.shelf = newShelf;
+    setBooks(books.filter(b => b.id !== book.id).concat([ book ]))
+    update(book, newShelf)
   }
 
 
