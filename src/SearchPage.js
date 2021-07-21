@@ -10,7 +10,6 @@ let query = "";
 
 export const SearchPage = () => {
   const [books, setBooks] = useState([])
-  const [libraryBooks, setlibraryBooks] = useState([])
   const [searching, setsearching] = useState(false)
 
 
@@ -37,10 +36,6 @@ export const SearchPage = () => {
     getAll().then(libResult => {
 
 
-      // Get books currently in the library
-      setlibraryBooks(libResult)
-
-
       search(q)
         .then((queryResult) => {
           // ret is undefined in the case of empty query
@@ -54,7 +49,7 @@ export const SearchPage = () => {
             queryResult.forEach(book => {
               // for each book in the query result
               // if it is in library, add to it the shelf prop
-              let libraryBook = libraryBooks.filter(libraryBook => libraryBook.id === book.id)
+              let libraryBook = libResult.filter(libraryBook => libraryBook.id === book.id)
               if (libraryBook.length > 0)
                   book.shelf = libraryBook[0].shelf
               
