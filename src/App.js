@@ -6,9 +6,9 @@ import { SearchPage } from './SearchPage'
 import { Switch, Route } from 'react-router-dom'
 
 const BooksApp = () => {
-
   return (
     <div className="app">
+
       <Switch>
         <Route exact path="/">
           <Library />
